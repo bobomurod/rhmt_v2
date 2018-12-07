@@ -5,8 +5,6 @@ const mongoose = require("mongoose");
 
 var routes = require("./routes/routes.js");
 
-routes(app);
-
 var app = express();
 
 app.use(cors());
@@ -21,6 +19,8 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+routes(app);
 
 var server = app.listen(9994, () =>
   console.log("Server running on ", server.address().port)
