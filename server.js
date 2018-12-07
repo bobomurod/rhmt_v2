@@ -3,12 +3,16 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
+var routes = require("./routes/routes.js");
+
+routes(app);
+
 var app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use("/test");
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -29,3 +33,17 @@ app.get("/", (req, res, next) => {
     .json()
     .send("hello");
 });
+
+///////////////////////////    MONGO DB CONNECTING    /////////////////
+
+let dev_db_url = "mongodb://localhost:27017/testdb";
+let mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect(
+  mongoDB,
+  { useNewUrlParser: true }
+);
+mongoose.Promise = global.Promise;
+let db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+/////////////////////////   MONGO DB CONN ENDING    /////////////////
