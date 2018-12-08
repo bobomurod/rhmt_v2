@@ -10,7 +10,8 @@ var app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/test");
+//app.use("/test");
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -20,15 +21,12 @@ app.use((req, res, next) => {
   next();
 });
 
+routes(app);
+
 app.get("/", (req, res, next) => {
   console.log("requested / ");
-  res
-    .status(200)
-    .json()
-    .send("hello");
+  res.status(200).json({ message: "index" });
 });
-
-routes(app);
 
 var server = app.listen(9994, () =>
   console.log("Server running on ", server.address().port)
