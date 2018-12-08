@@ -20,12 +20,6 @@ app.use((req, res, next) => {
   next();
 });
 
-routes(app);
-
-var server = app.listen(9994, () =>
-  console.log("Server running on ", server.address().port)
-);
-
 app.get("/", (req, res, next) => {
   console.log("requested / ");
   res
@@ -33,6 +27,12 @@ app.get("/", (req, res, next) => {
     .json()
     .send("hello");
 });
+
+routes(app);
+
+var server = app.listen(9994, () =>
+  console.log("Server running on ", server.address().port)
+);
 
 ///////////////////////////    MONGO DB CONNECTING    /////////////////
 
