@@ -1,5 +1,3 @@
-const express = require("express");
-
 exports.test = function(req, res) {
   //res.send({message: "test"})
   console.log("hello");
